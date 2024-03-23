@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
 app.post("/register", (req, res) => {
   // name = req.body.name.trim()
   // res.redirect("/")
+  //attacker can send js code or hyperlink or any invalid inputs here, used input directly.
   req.session.user = req.body.name.trim()
   res.send(`<p>Thank you</p> <a href="/">Back home</a>`)
 })

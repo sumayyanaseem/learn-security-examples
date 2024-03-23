@@ -6,6 +6,10 @@ const app = express()
 const secret = process.argv[2];
 app.use(express.urlencoded({ extended: false }))
 
+
+//secret is not hardcoded.
+//sessionId is hashed with secret, so when session Id is changed , the request is dropped by server.
+//document.cookie is not functional (http is true), if host and port matched --samesite is true.
 app.use(
   session({
     secret: `${secret}`,
@@ -18,6 +22,7 @@ app.use(
   })
 )
 
+//this can be called be any client , as long as their is session id
 app.post("/sensitive", (req, res) => {
   if (req.session.user === 'Admin') {
     req.session.sensitive = 'supersecret';

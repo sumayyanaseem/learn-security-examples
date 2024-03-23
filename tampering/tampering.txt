@@ -1,0 +1,7 @@
+The vulnerability present in the insecure version arises from the oversight in input sanitization when handling user-provided names for the session variable. This oversight creates a vulnerability point susceptible to XSS (Cross-Site Scripting) attacks, wherein malicious actors can insert harmful scripts into the session, posing a threat to sensitive data and system integrity.
+
+On the contrary, the secure version addresses this vulnerability by incorporating robust input sanitization mechanisms, such as utilizing the escapeHTML function. This function diligently escapes special HTML characters present in user inputs, thereby neutralizing any potential injection of malicious scripts or code. Through this proactive approach to sanitizing user inputs before incorporating them into the session variable, the secure version significantly mitigates the risk of XSS attacks. This ensures the robustness and security of the application's session management, safeguarding against unauthorized access and data breaches.
+
+
+
+
