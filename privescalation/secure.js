@@ -5,7 +5,10 @@ const session = require('express-session');
 const app = express();
 const port = 3000;
 
-// Middleware to parse incoming request bodies
+// Middleware for parsing URL-encoded form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Middleware for parsing JSON data
 app.use(bodyParser.json());
 
 // Session middleware
@@ -32,7 +35,7 @@ app.post('/update-role', (req, res) => {
   }
 
   // Simulated authorization based on session data
-  const loggedInUser = users.find(u => u.id === req.session.userId);
+  const loggedInUser = users.find(u => u.id === Number(req.session.userId));
   if (!loggedInUser || loggedInUser.role !== 'admin') {
     return res.status(403).json({ error: 'Forbidden' });
   }
@@ -45,6 +48,12 @@ app.post('/update-role', (req, res) => {
 
   userToUpdate.role = newRole;
   res.json({ message: 'User role updated successfully' });
+});
+
+// Route to serve the HTML form
+app.get('/send-form', (req, res) => {
+  // Serve the HTML form located in the 'public' directory
+  res.sendFile(__dirname + '/userForm.html');
 });
 
 // Start the server
